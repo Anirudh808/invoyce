@@ -1,0 +1,1 @@
+ALTER TABLE "invoice_details" ADD COLUMN "user_id" uuid NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE "invoices" ADD COLUMN "invoice_template_id" integer NOT NULL;

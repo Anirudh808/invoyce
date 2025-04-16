@@ -35,7 +35,6 @@ export const authOptions: NextAuthConfig = {
             await db.insert(users).values({
               name: profile.name,
               email: profile.email,
-              profilePic: profile.picture,
             });
           } catch (err) {
             console.log("Error inserting user:", err);
@@ -46,7 +45,6 @@ export const authOptions: NextAuthConfig = {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
-          image: profile.picture,
         };
       },
     }),

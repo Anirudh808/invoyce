@@ -42,3 +42,72 @@ export async function PATCH(
     return NextResponse.json({ success: false, message: error });
   }
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const session = getServerSession(authOptions);
+  const { id } = params;
+
+  if (!session) {
+    return NextResponse.json(
+      { success: false, message: "User not authorized" },
+      { status: 401 }
+    );
+  }
+  const authUser = await session.auth();
+  const authUserId = String(authUser?.user?.id);
+
+  try {
+    await db
+      .delete(schema.clients)
+      .where(
+        and(eq(schema.clients.userId, authUserId), eq(schema.clients.id, id))
+      )
+      .returning();
+
+    return NextResponse.json({
+      success: true,
+      data: `Deleted client successfully.`,
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const session = getServerSession(authOptions);
+  const { id } = params;
+
+  if (!session) {
+    return NextResponse.json(
+      { success: false, message: "User not authorized" },
+      { status: 401 }
+    );
+  }
+  const authUser = await session.auth();
+  const authUserId = String(authUser?.user?.id);
+
+  try {
+    const client = await db.query.clients.findFirst({
+      with: {
+        invoices: true,
+      },
+      where: (clients, { and, eq }) =>
+        and(eq(clients.id, id), eq(clients.userId, authUserId)),
+    });
+
+    if (client !== undefined) {
+      return NextResponse.json({
+        success: true,
+        data: client,
+      });
+    }
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}

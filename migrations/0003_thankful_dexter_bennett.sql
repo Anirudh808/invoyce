@@ -1,0 +1,1 @@
+ALTER TABLE "invoices" ALTER COLUMN "invoice_no" SET DATA TYPE integer;

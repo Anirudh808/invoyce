@@ -7,10 +7,10 @@ import { and, eq } from "drizzle-orm";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = getServerSession(authOptions);
-  const { id } = params;
+  const { id } = await params;
 
   if (!session) {
     return NextResponse.json(
@@ -48,11 +48,10 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = getServerSession(authOptions);
-  const { id } = params;
-
+  const { id } = await params;
   if (!session) {
     return NextResponse.json(
       { success: false, message: "User not authorized" },
@@ -81,10 +80,10 @@ export async function DELETE(
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = getServerSession(authOptions);
-  const { id } = params;
+  const { id } = await params;
 
   if (!session) {
     return NextResponse.json(

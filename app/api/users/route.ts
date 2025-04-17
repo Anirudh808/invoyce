@@ -6,7 +6,7 @@ import { db } from "@/database/db";
 import { usersBusiness } from "@/database/schema";
 import { v2 as cloudinary } from "cloudinary";
 
-export async function uploadFile(file: File) {
+async function uploadFile(file: File) {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -71,23 +71,23 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const newUserData = await db.insert(usersBusiness).values({
+    const insertedUserData = await db.insert(usersBusiness).values({
       userId: authUserId,
-      doorNo,
-      street,
-      city,
-      state,
-      zipcode,
-      country,
-      businessUrl,
-      profilePic: profilePicUrl,
-      businessLogo: businessLogoUrl,
-      currency,
-      phone,
-      businessName,
+      doorNo: doorNo as string,
+      street: street as string,
+      city: city as string,
+      state: state as string,
+      zipcode: zipcode as string,
+      country: country as string,
+      businessUrl: businessUrl as string,
+      profilePic: profilePicUrl as string,
+      businessLogo: businessLogoUrl as string,
+      currency: currency as string,
+      phone: phone as string,
+      businessName: businessName as string,
     });
 
-    return NextResponse.json({ success: true, data: newUserData });
+    return NextResponse.json({ success: true, data: insertedUserData });
   } catch (error) {
     return NextResponse.json({ success: false, message: error });
   }

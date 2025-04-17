@@ -15,16 +15,18 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
+const fileSchema = z
+  .custom<File>((file) => file instanceof File, "Must be a file")
+  .refine(
+    (file) => file.type.startsWith("image/"),
+    "Only image files are allowed"
+  )
+  .refine((file) => file.size <= 5 * 1024 * 1024, "File size must be ≤ 5MB");
+
 const formSchema = z.object({
   name: z.string(),
   email: z.string().email(),
-  profilePic: z
-    .custom<File>((file) => file instanceof File, "Must be a file")
-    .refine(
-      (file) => file.type.startsWith("image/"),
-      "Only image files are allowed"
-    )
-    .refine((file) => file.size <= 5 * 1024 * 1024, "File size must be ≤ 5MB"),
+  profilePic: z.union([fileSchema, z.null()]).optional(),
   companyName: z.string(),
   phone: z.string(),
   address: z.string(),
@@ -48,7 +50,7 @@ const AddClient = () => {
 
     formData.append("name", values.name);
     formData.append("email", values.email);
-    formData.append("profilePic", values.profilePic);
+    formData.append("profilePic", values.profilePic || "");
     formData.append("companyName", values.companyName);
     formData.append("phone", values.phone);
     formData.append("address", values.address);

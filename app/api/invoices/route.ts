@@ -63,13 +63,13 @@ export async function POST(req: NextRequest) {
     const newInvoice = await db
       .insert(schema.invoices)
       .values({
-        userId: authUserId,
-        clientId: clientId,
-        total: parseFloat(total),
-        notes,
-        taxPercentage: parseFloat(taxPercentage),
-        taxAmount: parseFloat(taxAmount),
-        invoiceNumber,
+        userId: authUserId as string,
+        clientId: clientId as string,
+        total: total as string,
+        notes: notes as string,
+        taxPercentage: taxPercentage as string,
+        tax_amount: taxAmount as string,
+        invoiceNumber: invoiceNumber as number,
       })
       .returning();
 

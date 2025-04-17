@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 import { v2 as cloudinary } from "cloudinary";
 import { File } from "node:buffer";
 
-export async function uploadFile(file: File) {
+async function uploadFile(file: File) {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,

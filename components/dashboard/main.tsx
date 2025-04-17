@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
-import { GetUserWithBusiness } from "@/lib/types";
-import { GetInvoice } from "@/database/schema";
+import { GetInvoicesWithClient, GetUserWithBusiness } from "@/lib/types";
 import InvoiceStatusCard from "./InvoiceStatusCard";
 import { formatUSD } from "@/lib/utils";
 import { Component } from "../Chart";
+import { columns, DataTable } from "@/app/(root)/console/invoices/Table";
 // import AreaChart from "./AreaChart";
 
 const DashboardMain = () => {
   const [user, setUser] = useState<GetUserWithBusiness>();
-  const [invoices, setInvoices] = useState<GetInvoice[]>();
+  const [invoices, setInvoices] = useState<GetInvoicesWithClient[]>();
   const [chartData, setChartData] =
     useState<Array<{ month: string; amount: number }>>();
   const [monthRange, setMonthRange] = useState(6);
@@ -112,8 +112,6 @@ const DashboardMain = () => {
     });
   }
 
-  console.log(user);
-
   if (!user) {
     return <Loader />;
   }
@@ -182,6 +180,17 @@ const DashboardMain = () => {
               }[]
             }
             onChangeRange={(months: number) => setMonthRange(months)}
+          />
+        </div>
+        <div>
+          <DataTable
+            columns={columns({ showClient: true })}
+            data={
+              invoices?.sort(
+                (a, b) =>
+                  new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
+              ) as GetInvoicesWithClient[]
+            }
           />
         </div>
       </div>

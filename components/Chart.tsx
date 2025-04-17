@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
@@ -17,6 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useEffect, useState } from "react";
 
 const chartConfig = {
   amount: {
@@ -32,6 +33,18 @@ export function Component({
   chartData: Array<{ month: string; amount: number }>;
   onChangeRange: (months: number) => void;
 }) {
+  const [currentMonthChange, setCurrentMonthChange] = useState<number>();
+
+  useEffect(() => {
+    if (chartData && chartData.length > 1) {
+      const length = chartData.length;
+      setCurrentMonthChange(
+        (chartData[length - 1].amount - chartData[length - 2].amount) *
+          (100 / chartData[length - 2].amount)
+      );
+    }
+  }, [chartData]);
+
   return (
     <Card>
       <CardHeader>
@@ -47,8 +60,12 @@ export function Component({
             id="range"
             onChange={(e) => onChangeRange(Number(e.target.value))}
           >
-            <option value={6}>Past 6 months</option>
-            <option value={12}>Past 1 year</option>
+            <option value={6} className="p-1">
+              Past 6 months{" "}
+            </option>
+            <option value={12} className="p-1">
+              Past 1 year{" "}
+            </option>
           </select>
         </div>
       </CardHeader>
@@ -88,7 +105,24 @@ export function Component({
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+              {currentMonthChange ? (
+                currentMonthChange > 0 ? (
+                  <div className="flex gap-1">
+                    <p>
+                      Trending up by {Math.abs(currentMonthChange).toFixed(2)}%
+                      this month{" "}
+                    </p>
+                    <TrendingUp className="h-4 w-4" />
+                  </div>
+                ) : (
+                  <div className="flex gap-1">
+                    Trending down by {Math.abs(currentMonthChange).toFixed(2)}%
+                    this month {<TrendingDown className="h-4 w-4" />}
+                  </div>
+                )
+              ) : (
+                ""
+              )}
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               {}

@@ -44,3 +44,10 @@ export type User = {
   createdAt: string; // or Date
   updatedAt: string; // or Date
 };
+
+export interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}

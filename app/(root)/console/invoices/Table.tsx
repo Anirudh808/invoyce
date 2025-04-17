@@ -59,7 +59,7 @@ export const columns = ({
   onUpdate,
 }: {
   showClient: boolean;
-  onUpdate: (item: string, id: string) => void;
+  onUpdate?: (item: string, id: string) => void;
 }): ColumnDef<GetInvoice>[] => {
   const baseColumns: (ColumnDef<GetInvoice> | false)[] = [
     {
@@ -148,7 +148,7 @@ export const columns = ({
         return <p className="pl-3">{new Date(dueDate).toLocaleDateString()}</p>;
       },
     },
-    {
+    onUpdate !== undefined && {
       id: "actions",
       header: "Actions",
       cell: ({ row }) => {

@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased flex justify-center h-screen items-center bg-slate-50`}
+        className={`${inter.variable} antialiased flex justify-center min-h-screen items-center bg-slate-50 max-sm:items-start`}
       >
         {children}
       </body>

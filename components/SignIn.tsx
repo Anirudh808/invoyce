@@ -42,8 +42,8 @@ export default function SignIn() {
   }
 
   return (
-    <div className="flex w-[50%] rounded-lg shadow-xl max-h-3/5">
-      <div className="px-12 flex flex-col gap-4 w-1/2 bg-white py-12 rounded-bl-lg rounded-tl-lg">
+    <div className="flex w-[50%] rounded-lg shadow-xl max-h-3/5 max-sm:w-[90%] max-sm:flex-col max-sm:h-screen">
+      <div className="px-12 flex flex-col gap-4 w-1/2 bg-white py-12 rounded-bl-lg rounded-tl-lg max-sm:w-full">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -160,7 +160,7 @@ export default function SignIn() {
           </Button>
         </div>
       </div>
-      <div className="w-[50%] bg-gradient-to-br from-blue-400 to-purple-400 rounded-br-lg rounded-tr-lg flex flex-col items-center justify-center px-4 gap-4">
+      <div className="w-[50%] bg-gradient-to-br from-blue-400 to-purple-400 rounded-br-lg rounded-tr-lg flex flex-col items-center justify-center px-4 gap-4 max-sm:w-full max-sm:py-12 max-sm:rounded-bl-lg max-sm:rounded-tr-none">
         <h2 className="text-white text-3xl text-center tracking-wide font-bold">
           Hello, Friend!
         </h2>

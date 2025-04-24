@@ -26,7 +26,9 @@ export async function POST(
     const formData = await req.formData();
 
     const description = formData.get("description") as string;
-    const unitPrice = parseFloat(formData.get("unitPrice") as string);
+    const unitPrice = parseFloat(
+      formData.get("unitPrice")?.toString() as string
+    );
     const quantity = parseInt(formData.get("quantity") as string);
     const subTotal = parseFloat(formData.get("subTotal") as string);
 

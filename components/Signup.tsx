@@ -67,8 +67,8 @@ export default function Signup() {
   }, [isPasswordMatch, form]);
 
   return (
-    <div className="flex w-[50%] rounded-lg shadow-xl max-h-4/5">
-      <div className="w-[50%] bg-gradient-to-br from-blue-400 to-purple-400 rounded-bl-lg rounded-tl-lg flex flex-col items-center justify-center px-4 gap-4">
+    <div className="flex flex-col-reverse md:flex-row w-11/12 md:w-[50%] rounded-lg shadow-xl max-sm:h-full mt-8 md:mt-0">
+      <div className="w-[50%] bg-gradient-to-br from-blue-400 to-purple-400 rounded-bl-lg rounded-tl-lg flex flex-col items-center justify-center px-4 gap-4 max-sm:w-full py-12">
         <h2 className="text-white text-3xl text-center tracking-wide font-bold">
           Welcome, Back!
         </h2>
@@ -86,7 +86,7 @@ export default function Signup() {
           Sign In
         </Button>
       </div>
-      <div className="px-12 flex flex-col gap-4 w-1/2 bg-white py-12 rounded-br-lg rounded-tr-lg">
+      <div className="px-12 flex flex-col gap-4 w-1/2 bg-white py-12 rounded-br-lg rounded-tr-lg max-sm:w-full">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

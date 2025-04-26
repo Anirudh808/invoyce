@@ -5,6 +5,8 @@ import { LayoutDashboardIcon, NotebookTabs, User2 } from "lucide-react";
 import { auth } from "@/auth";
 import { Session } from "next-auth";
 import { redirect } from "next/navigation";
+import Image from "next/image";
+import MobileSidebarIndex from "@/components/templates/MobileSidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +25,7 @@ export default async function layout({
   }
 
   return (
-    <main className="flex">
+    <main className="flex max-sm:flex-col">
       <Sidebar session={session as Session}>
         <SidebarItem
           icon={<LayoutDashboardIcon size={30} />}
@@ -41,6 +43,19 @@ export default async function layout({
           href="/console/invoices"
         />
       </Sidebar>
+      <div className="border-b border-b-gray-200 shadow-md py-1 flex justify-between items-center sm:hidden">
+        <div className="flex items-center">
+          <Image src="/logo.svg" className={``} alt="" width={44} height={44} />
+          <p
+            className={"text-3xl tracking-wider text-indigo-800 font-bold w-32"}
+          >
+            Invoyce
+          </p>
+        </div>
+        <div>
+          <MobileSidebarIndex session={session as Session} />
+        </div>
+      </div>
       {children}
     </main>
   );

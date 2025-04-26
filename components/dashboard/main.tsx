@@ -127,14 +127,14 @@ const DashboardMain = () => {
         </p>
       </div>
       <div className="mt-3 p-6 border border-gray-200 rounded-md w-full">
-        <h2 className="text-3xl tracking-wide font-bold text-indigo-800">
+        <h2 className="text-xl md:text-3xl tracking-wide font-bold text-indigo-800">
           Welcome back, {user.name} 👋
         </h2>
-        <p className="text-md text-gray-400">
+        <p className="text-md text-gray-400 leading-4">
           Glad to see you again to Invoyce, ready to manage invoices
         </p>
       </div>
-      <div className="grid grid-cols-3 gap-x-6 mt-3">
+      <div className="grid grid-cols-1 gap-y-4 md:grid-cols-3 gap-x-6 mt-3">
         <InvoiceStatusCard
           title="Total Invoices"
           className="border border-blue-500 shadow-blue-300 bg-blue-50"
@@ -170,7 +170,7 @@ const DashboardMain = () => {
           </div>
         </InvoiceStatusCard>
       </div>
-      <div className="grid grid-cols-2 gap-x-2 mt-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 mt-6 sm:mt-3">
         <div>
           <Component
             chartData={
@@ -182,16 +182,22 @@ const DashboardMain = () => {
             onChangeRange={(months: number) => setMonthRange(months)}
           />
         </div>
-        <div>
-          <DataTable
-            columns={columns({ showClient: true })}
-            data={
-              invoices?.sort(
-                (a, b) =>
-                  new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime()
-              ) as GetInvoicesWithClient[]
-            }
-          />
+        <div className="mt-6 sm:mt-0">
+          <h3 className="text-2xl md:text-3xl font-bold text-indigo-800">
+            Latest Invoices
+          </h3>
+          <div className="w-full overflow-x-auto">
+            <DataTable
+              columns={columns({ showClient: true })}
+              data={
+                invoices?.sort(
+                  (a, b) =>
+                    new Date(b.dueDate).getTime() -
+                    new Date(a.dueDate).getTime()
+                ) as GetInvoicesWithClient[]
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

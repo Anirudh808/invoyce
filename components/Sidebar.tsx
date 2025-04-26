@@ -37,7 +37,7 @@ export default function Sidebar({
   }, []);
 
   return (
-    <aside className="h-screen">
+    <aside className="h-screen max-sm:hidden">
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <Image src="/logo.svg" className={``} alt="" width={44} height={44} />
@@ -113,12 +113,14 @@ export function SidebarItem({
   active,
   alert,
   href,
+  onClick,
 }: {
   icon: React.ReactNode;
   text: string;
   active?: boolean;
   alert?: boolean;
   href: string;
+  onClick?: () => void;
 }) {
   const { expanded } = useContext(SidebarContext);
   const pathName = usePathname();
@@ -126,6 +128,7 @@ export function SidebarItem({
 
   return (
     <Link
+      onClick={onClick}
       href={href}
       className={`
         relative flex items-center py-2 px-3 my-1

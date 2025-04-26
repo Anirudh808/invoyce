@@ -22,7 +22,7 @@ function Email() {
       <Tailwind>
         <Body className={`bg-white`}>
           <Heading>Hello!</Heading>
-          <Link href="http://localhost:3000">Click Me!</Link>
+          <Link href="https://www.invoyce.vercel.app">Click Me!</Link>
         </Body>
       </Tailwind>
     </Html>

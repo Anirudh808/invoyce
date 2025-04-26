@@ -16,7 +16,7 @@ const Page = () => {
     const getData = async () => {
       try {
         console.log(`Fetching data from API...`);
-        const res = await fetch("http://localhost:3000/api/clients", {
+        const res = await fetch("/api/clients", {
           cache: "no-store",
         });
         const response = await res.json();
